@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Josefin Slab", serif;
+  height: 100vh;
+}
+
+.spinner {
+  height: 100%;
+}
+
+.cards {
+  position: relative;
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner_arrow {
+  z-index: 20;
+  position: absolute;
+  align-self: center;
+  /* left: 28%; */
+  /* top: 12%; */
+  /* animation: rotate 0.7s infinite linear; */
+  /* transform-origin: 58px 270px; */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.chart_container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+#chart {
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+}
+
+#question {
+  position: absolute;
+  width: 400px;
+  height: 500px;
+  top: 0;
+  left: 520px;
+}
+#question h1 {
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
