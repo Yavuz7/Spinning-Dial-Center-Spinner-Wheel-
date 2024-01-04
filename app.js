@@ -142,24 +142,22 @@ function spin(d) {
   //     return;
   //   }
   var ps = 360 / data.length,
-    pieslice = Math.round(1440 / data.length),
-    rng = Math.floor(Math.random() * 1440 + 360);
+    rng = Math.floor(Math.random() * 1440 + 720);
 
   rotation = Math.round(rng / ps) * ps;
-
   picked = Math.round(data.length - (rotation % 360) / ps);
-  picked = picked >= data.length ? picked % data.length : picked;
+  picked = picked > data.length ? picked % data.length : picked;
   //   if (oldpick.indexOf(picked) !== -1) {
   //     d3.select(this).call(spin);
   //     return;
   //   } else {
   //     oldpick.push(picked);
   //   }
-  rotation += 90 - Math.round(ps / 2);
+  rotation += Math.round(ps / 2);
   //   d3.select("#spinner_arrow")
   d3.select("#spinner_arrow")
     .transition()
-    .duration(3000)
+    .duration(3500)
     .attrTween("transform", rotTween)
     .each("end", function () {
       //mark question as seen
@@ -172,7 +170,7 @@ function spin(d) {
       oldrotation = rotation;
 
       /* Get the result value from object "data" */
-      console.log(data[picked].value);
+      console.log(data[picked - 1].value);
 
       /* Comment the below line for restrict spin to sngle time */
       spinner.on("click", spin);
@@ -186,21 +184,3 @@ function rotTween(to) {
     return "rotate(" + i(t) + ")";
   };
 }
-
-// function getRandomNumbers() {
-//   var array = new Uint16Array(1000);
-//   var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
-//   if (
-//     window.hasOwnProperty("crypto") &&
-//     typeof window.crypto.getRandomValues === "function"
-//   ) {
-//     window.crypto.getRandomValues(array);
-//     console.log("works");
-//   } else {
-//     //no support for crypto, get crappy random numbers
-//     for (var i = 0; i < 1000; i++) {
-//       array[i] = Math.floor(Math.random() * 100000) + 1;
-//     }
-//   }
-//   return array;
-// }
