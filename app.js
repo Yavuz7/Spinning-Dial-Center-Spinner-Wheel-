@@ -1,4 +1,6 @@
 // Code Derived From : https://codepen.io/deab/pen/gObXawr Spin Wheel Using JS - Dee
+var spinner;
+
 var padding = { top: 0, right: 0, bottom: 0, left: 0 },
   // Media Query to resize w and h
   w = 700 - padding.left - padding.right,
@@ -12,24 +14,45 @@ var padding = { top: 0, right: 0, bottom: 0, left: 0 },
 //Set Data From Files?
 var data = [
   {
-    label: "Dell LAPTOP",
+    label: "1",
     value: 1,
     question:
       "What CSS property is used for specifying the area between the content and its border?",
   }, // padding
   {
-    label: "IMAC PRO",
+    label: "2",
     value: 2,
     question: "What CSS property is used for changing the font?",
   }, //font-family
   {
-    label: "SUZUKI",
+    label: "3",
     value: 3,
     question: "What CSS property is used for changing the color of text?",
   }, //color
   {
-    label: "HONDA",
+    label: "4",
     value: 4,
+    question: "What CSS property is used for changing the boldness of text?",
+  }, //font-weight
+  {
+    label: "5",
+    value: 5,
+    question:
+      "What CSS property is used for specifying the area between the content and its border?",
+  }, // padding
+  {
+    label: "6",
+    value: 6,
+    question: "What CSS property is used for changing the font?",
+  }, //font-family
+  {
+    label: "7",
+    value: 7,
+    question: "What CSS property is used for changing the color of text?",
+  }, //color
+  {
+    label: "8",
+    value: 8,
     question: "What CSS property is used for changing the boldness of text?",
   }, //font-weight
 ];
@@ -92,9 +115,25 @@ arcs
     return data[i].label;
   });
 
+d3.xml("images/arrow.svg")
+  .mimeType("image/svg+xml")
+  .get(function (error, xml) {
+    if (error) throw error;
+    var arrow = xml.documentElement;
+    arrow.setAttribute("id", "spinner_arrow");
+    // arrow.style.fill = "red";
+    var wheel = document.querySelector("#chart");
+    wheel.appendChild(arrow);
+    spinner = d3.select("#spinner_arrow");
+    spinner.on("click", spin);
+
+    // document.body.appendChild(arrow);
+  });
+
 container.on("click", spin);
 function spin(d) {
   container.on("click", null);
+  spinner.on("click", null);
   //all slices have been seen, all done
   console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
   //   if (oldpick.length == data.length) {
@@ -136,21 +175,10 @@ function spin(d) {
       console.log(data[picked].value);
 
       /* Comment the below line for restrict spin to sngle time */
+      spinner.on("click", spin);
       container.on("click", spin);
     });
 }
-
-d3.xml("images/arrow.svg")
-  .mimeType("image/svg+xml")
-  .get(function (error, xml) {
-    if (error) throw error;
-    var arrow = xml.documentElement;
-    arrow.setAttribute("id", "spinner_arrow");
-    // arrow.style.fill = "red";
-    var wheel = document.querySelector("#chart");
-    wheel.appendChild(arrow);
-    // document.body.appendChild(arrow);
-  });
 
 function rotTween(to) {
   var i = d3.interpolate(oldrotation % 360, rotation);
@@ -159,20 +187,20 @@ function rotTween(to) {
   };
 }
 
-function getRandomNumbers() {
-  var array = new Uint16Array(1000);
-  var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
-  if (
-    window.hasOwnProperty("crypto") &&
-    typeof window.crypto.getRandomValues === "function"
-  ) {
-    window.crypto.getRandomValues(array);
-    console.log("works");
-  } else {
-    //no support for crypto, get crappy random numbers
-    for (var i = 0; i < 1000; i++) {
-      array[i] = Math.floor(Math.random() * 100000) + 1;
-    }
-  }
-  return array;
-}
+// function getRandomNumbers() {
+//   var array = new Uint16Array(1000);
+//   var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
+//   if (
+//     window.hasOwnProperty("crypto") &&
+//     typeof window.crypto.getRandomValues === "function"
+//   ) {
+//     window.crypto.getRandomValues(array);
+//     console.log("works");
+//   } else {
+//     //no support for crypto, get crappy random numbers
+//     for (var i = 0; i < 1000; i++) {
+//       array[i] = Math.floor(Math.random() * 100000) + 1;
+//     }
+//   }
+//   return array;
+// }

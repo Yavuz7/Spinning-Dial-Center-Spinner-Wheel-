@@ -26,19 +26,6 @@ body {
   z-index: 20;
   position: absolute;
   align-self: center;
-  /* left: 28%; */
-  /* top: 12%; */
-  /* animation: rotate 0.7s infinite linear; */
-  /* transform-origin: 58px 270px; */
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
 }
 
 .chart_container {
@@ -51,26 +38,11 @@ body {
 }
 
 #chart {
+  user-select: none;
+  font-size: 120px;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   top: 0;
   left: 0;
-}
-
-#question {
-  position: absolute;
-  width: 400px;
-  height: 500px;
-  top: 0;
-  left: 520px;
-}
-#question h1 {
-  font-size: 50px;
-  font-weight: bold;
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  top: 50%;
-  -webkit-transform: translate(0, -50%);
-  transform: translate(0, -50%);
 }
