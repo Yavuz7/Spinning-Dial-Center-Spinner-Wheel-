@@ -32,29 +32,6 @@ var data = [
     value: 4,
     question: "What CSS property is used for changing the boldness of text?",
   }, //font-weight
-  {
-    label: "FERRARI",
-    value: 5,
-    question: "What CSS property is used for changing the size of text?",
-  }, //font-size
-  {
-    label: "APARTMENT",
-    value: 6,
-    question:
-      "What CSS property is used for changing the background color of a box?",
-  }, //background-color
-  {
-    label: "IPAD PRO",
-    value: 7,
-    question:
-      "Which word is used for specifying an HTML tag that is inside another tag?",
-  }, //nesting
-  {
-    label: "LAND",
-    value: 8,
-    question:
-      "Which side of the box is the third number in: margin:1px 1px 1px 1px; ?",
-  }, //bottom
 ];
 var svg = d3
   .select("#chart")
@@ -120,11 +97,11 @@ function spin(d) {
   container.on("click", null);
   //all slices have been seen, all done
   console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
-  if (oldpick.length == data.length) {
-    console.log("done");
-    container.on("click", null);
-    return;
-  }
+  //   if (oldpick.length == data.length) {
+  //     console.log("done");
+  //     container.on("click", null);
+  //     return;
+  //   }
   var ps = 360 / data.length,
     pieslice = Math.round(1440 / data.length),
     rng = Math.floor(Math.random() * 1440 + 360);
@@ -133,14 +110,15 @@ function spin(d) {
 
   picked = Math.round(data.length - (rotation % 360) / ps);
   picked = picked >= data.length ? picked % data.length : picked;
-  if (oldpick.indexOf(picked) !== -1) {
-    d3.select(this).call(spin);
-    return;
-  } else {
-    oldpick.push(picked);
-  }
+  //   if (oldpick.indexOf(picked) !== -1) {
+  //     d3.select(this).call(spin);
+  //     return;
+  //   } else {
+  //     oldpick.push(picked);
+  //   }
   rotation += 90 - Math.round(ps / 2);
-  vis
+  //   d3.select("#spinner_arrow")
+  d3.select("#spinner_arrow")
     .transition()
     .duration(3000)
     .attrTween("transform", rotTween)
@@ -161,49 +139,18 @@ function spin(d) {
       container.on("click", spin);
     });
 }
-//make arrow
-// svg
-//   .append("g")
-//   .attr(
-//     "transform",
-//     "translate(" +
-//       (w + padding.left + padding.right) +
-//       "," +
-//       (h / 2 + padding.top) +
-//       ")"
-//   )
-//   .append("path")
-//   .attr("d", "M-" + r * 0.15 + ",0L0," + r * 0.05 + "L0,-" + r * 0.05 + "Z")
-//   .style({ fill: "black" });
-// Spinner Arrow
-// svg
-//   //   .xml("images/arrow.svg")
-//   .append("img")
-//   .mimeType("image/svg+xml")
-//   .attr("class", "spinner_arrow")
-//   //   .attr(
-//   //     "transform",
-// "translate(" +
-//   (w + padding.left + padding.right) +
-//   "," +
-//   (h / 2 + padding.top) +
-//   ")";
-//   //   )
-//   .attr("src", "images/arrow.svg");
 
-addEventListener("DOMContentLoaded", (event) => {
-  var spinner = document.querySelector("#spinner_arrow");
-  var wheel = document.querySelector("#chart");
-
-  wheel.appendChild(spinner);
-  var spinner = document.querySelector("#spinner_arrow");
-  //   spinner.style.transform =
-  //     "translate(" +
-  //     (w / 2 + padding.left + padding.right) +
-  //     "px," +
-  //     (h / 2 + padding.top) +
-  //     "px)";
-});
+d3.xml("images/arrow.svg")
+  .mimeType("image/svg+xml")
+  .get(function (error, xml) {
+    if (error) throw error;
+    var arrow = xml.documentElement;
+    arrow.setAttribute("id", "spinner_arrow");
+    // arrow.style.fill = "red";
+    var wheel = document.querySelector("#chart");
+    wheel.appendChild(arrow);
+    // document.body.appendChild(arrow);
+  });
 
 function rotTween(to) {
   var i = d3.interpolate(oldrotation % 360, rotation);

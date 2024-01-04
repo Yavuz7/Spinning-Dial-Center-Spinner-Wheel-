@@ -47,6 +47,7 @@ body {
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 #chart {
