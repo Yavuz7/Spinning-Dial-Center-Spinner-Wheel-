@@ -143,6 +143,8 @@ function spin(d) {
   //     return;
   //   }
   var ps = 360 / data.length,
+    //Change the 720 to a lower or higher number to increase
+    //or decrease the number of times the spinner spins
     rng = Math.floor(Math.random() * 1440 + 720);
 
   rotation = Math.round(rng / ps) * ps;
