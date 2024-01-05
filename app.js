@@ -16,45 +16,43 @@ var data = [
   {
     label: "1",
     value: 1,
-    question:
-      "What CSS property is used for specifying the area between the content and its border?",
-  }, // padding
+    content: "You rolled a 1, bazinga!",
+  },
   {
     label: "2",
     value: 2,
-    question: "What CSS property is used for changing the font?",
-  }, //font-family
+    content: "You got a 2, nice job!",
+  },
   {
     label: "3",
     value: 3,
-    question: "What CSS property is used for changing the color of text?",
-  }, //color
+    content: "You got a 3, that's a real number.",
+  },
   {
     label: "4",
     value: 4,
-    question: "What CSS property is used for changing the boldness of text?",
-  }, //font-weight
+    content: "You got a 4, smore!",
+  },
   {
     label: "5",
     value: 5,
-    question:
-      "What CSS property is used for specifying the area between the content and its border?",
-  }, // padding
+    content: "You got a 5, what a surprise!",
+  },
   {
     label: "6",
     value: 6,
-    question: "What CSS property is used for changing the font?",
-  }, //font-family
+    content: "You got a 6, epix",
+  },
   {
     label: "7",
     value: 7,
-    question: "What CSS property is used for changing the color of text?",
-  }, //color
+    content: "You got a 7, woohoo",
+  },
   {
     label: "8",
     value: 8,
-    question: "What CSS property is used for changing the boldness of text?",
-  }, //font-weight
+    content: "You got a 8, great!",
+  },
 ];
 var svg = d3
   .select("#chart")
@@ -145,7 +143,8 @@ function spin(d) {
     rng = Math.floor(Math.random() * 1440 + 720);
 
   rotation = Math.round(rng / ps) * ps;
-  picked = Math.round(data.length - (rotation % 360) / ps);
+  console.log("rotation" + (rotation % 360));
+  picked = Math.round((rotation % 360) / ps);
   picked = picked > data.length ? picked % data.length : picked;
   //   if (oldpick.indexOf(picked) !== -1) {
   //     d3.select(this).call(spin);
@@ -166,11 +165,11 @@ function spin(d) {
       //     "#111"
       //   );
       //populate question
-      //   d3.select("#question h1").text(data[picked].question);
+      d3.select("#spinner_content h1").text(data[picked].content);
       oldrotation = rotation;
 
       /* Get the result value from object "data" */
-      console.log(data[picked - 1].value);
+      console.log(data[picked].value);
 
       /* Comment the below line for restrict spin to sngle time */
       spinner.on("click", spin);

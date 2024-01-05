@@ -46,3 +46,9 @@ body {
   top: 0;
   left: 0;
 }
+#spinner_content {
+  position: absolute;
+  bottom: 35px;
+  font-size: 1.4rem;
+  justify-self: center;
+}
