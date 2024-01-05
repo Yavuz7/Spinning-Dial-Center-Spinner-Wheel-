@@ -97,18 +97,21 @@ arcs
 arcs
   .append("text")
   .attr("transform", function (d) {
-    d.innerRadius = 0;
-    d.outerRadius = r;
-    d.angle = (d.startAngle + d.endAngle) / 2;
+    //Change This Number To Move Numbers On Wheel
+    d.innerRadius = r / 1.6;
+    // d.outerRadius = r;
     return (
-      "rotate(" +
-      ((d.angle * 180) / Math.PI - 90) +
-      ")translate(" +
-      (d.outerRadius - 10) +
+      // "rotate(" +
+      // ((d.angle * 180) / Math.PI - 90) +
+      "translate(" +
+      arc.outerRadius(r - 40).centroid(d)[0] +
+      "," +
+      //Arbitrary addition to center it better, I don't know what's wrong with it in the first place
+      (arc.outerRadius(r - 40).centroid(d)[1] + 33) +
       ")"
     );
   })
-  .attr("text-anchor", "end")
+  .attr("text-anchor", "middle")
   .text(function (d, i) {
     return data[i].label;
   });
@@ -144,6 +147,8 @@ function spin(d) {
 
   rotation = Math.round(rng / ps) * ps;
   console.log("rotation" + (rotation % 360));
+  //Picked is equal to modulation of the arrows position so it's under 360,
+  //then you just divide to get how many pie slices it's passed around
   picked = Math.round((rotation % 360) / ps);
   picked = picked > data.length ? picked % data.length : picked;
   //   if (oldpick.indexOf(picked) !== -1) {
